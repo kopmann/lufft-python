@@ -1,25 +1,61 @@
 # lufft-python
-A Python API/driver for communication to Weatherstations made by the German company Lufft (e.g. WS600-UMB) via Serial-Port
-It implements their Lufft UMB-Protocol. You just need a USB-to-RS485 dongle and connect it to your PWS according to the wiring diagram you find in the manual.
 
-This class does not replace the UMB-config-tool, because its not able to set the config values in your PWS at the moment.
+A Python API and driver for communication with weather stations made by the German company Lufft (e.g. OPUS20 family, WS600-UMB , ...) via LAN or serial port.
+It implements the UMB protocol defined by Lufft. For the serial devices you will need a USB-to-RS485 dongle. The serial interface is currently handled by the separate implementation in `WS_UMB.py`. 
+
+This class does not replace the Lufft configuration tools as it is not possible to modify the config via UMB protocol.
+
+Links: 
+
+- [UMB specification](https://www.lufft.com/download/manual-lufft-umb-protocol-en/)
+- [User manual OPUS20 / BA - THI - THIP - THO](https://www.lufft.com/de-de/produkte/download-de/bedienanleitung-lufft-opus20-thi-thip-tco-de/)
+
 
 ## Usage
 
 ### In your python-script
 
-```python
-from WS_UMB import WS_UMB
+The most relevant commands are implemented in the Python API:
 
-with WS_UMB() as umb:
-    value, status = umb.onlineDataQuery(SomeChannelNumber)
-    if status != 0:
-        print(umb.checkStatus(status))
-    else:
-        print(value)
+- read a single value
+- read multiple channels with a single call
+- read status
+- read device time (this is NOT the timestamp of any data)
+- read device information (not working currently)
+
+Example: Reading a single value
+
+```python
+from LAN_UMB import LAN_UMB
+
+with LAN_UMB(ip = <ip address>) as umb:
+    value = umb.onlineDataQuery(SomeChannelNumber)
+    print(value)
 ```
-### As a standalone python-program:
+
+
+### As a standalone python-program
+
+Read values form the data logger.
+
+```
+# python LAN_UMB.py  -h
+usage: LAN_UMB.py [-h] [--ip IP] [--loop] channels [channels ...]
+
+positional arguments:
+  channels    list of channels to be read
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --ip IP     IP address of the device
+  --loop      read data in a loop
+
+```
+
+
+Example:
 
 ```shell
-$ ./WS_UMB.py 100 111 200 300 460 580
+$ ./LAN_UMB.py --ip 10.0.1.26 100 111 200 300 460 580
 ```
+
