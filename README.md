@@ -8,6 +8,7 @@ This class does not replace the Lufft configuration tools as it is not possible 
 Links: 
 
 - [UMB specification](https://www.lufft.com/download/manual-lufft-umb-protocol-en/)
+- [UMB configuration tool](https://www.lufft.com/download/manual-lufft-umb-config-tool-en/)
 - [User manual OPUS20 / BA - THI - THIP - THO](https://www.lufft.com/de-de/produkte/download-de/bedienanleitung-lufft-opus20-thi-thip-tco-de/)
 
 

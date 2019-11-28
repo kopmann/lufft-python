@@ -42,7 +42,7 @@ class LAN_UMB:
     Usage
     -----
     1. In your python-script: 
-        from LAN_UMB import WS_UMB
+        from LAN_UMB import LAN_UMB
         
         with LAN_UMB(ip=<address of the device>) as umb:
             value = umb.onlineDataQuery(<channel number>)
